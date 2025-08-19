@@ -32,6 +32,36 @@ def logout():
     logout_user()
     return jsonify({'msg': 'Logged out'})
 
+
+# User profile endpoint
+@bp.route('/profile', methods=['GET'])
+@jwt_required()
+def profile():
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'msg': 'User not found'}), 404
+    return jsonify({
+        'id': user.id,
+        'username': user.username
+    })
+
+# User settings update endpoint (e.g., change username)
+@bp.route('/settings', methods=['PATCH'])
+@jwt_required()
+def update_settings():
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'msg': 'User not found'}), 404
+    data = request.json
+    if 'username' in data:
+        if User.query.filter_by(username=data['username']).first():
+            return jsonify({'msg': 'Username already taken'}), 400
+        user.username = data['username']
+    db.session.commit()
+    return jsonify({'msg': 'Settings updated'})
+
 @bp.route('/notes', methods=['GET', 'POST'])
 @jwt_required()
 def notes():
