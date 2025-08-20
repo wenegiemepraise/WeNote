@@ -1,16 +1,27 @@
 import React, { useState, useEffect } from 'react';
+import './darkmode.css';
 import { register, login, getNotes, createNote } from './api';
 import { setToken, getToken, removeToken, getUserFromToken } from './auth';
 import NoteEditor from './components/NoteEditor';
 import NotesList from './components/NotesList';
 import Profile from './components/Profile';
 
-function App() {
   const [user, setUser] = useState(getUserFromToken());
   const [notes, setNotes] = useState([]);
   const [authMode, setAuthMode] = useState('login');
   const [form, setForm] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
+  const [dark, setDark] = useState(() => {
+    return localStorage.getItem('darkmode') === 'true';
+  });
+  useEffect(() => {
+    if (dark) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+    localStorage.setItem('darkmode', dark);
+  }, [dark]);
 
   useEffect(() => {
     if (user) {
@@ -51,7 +62,10 @@ function App() {
 
   if (!user) {
     return (
-      <div style={{ maxWidth: 400, margin: '2rem auto' }}>
+      <div style={{ maxWidth: 400, margin: '2rem auto', position: 'relative' }}>
+        <button className="dark-toggle" onClick={() => setDark(d => !d)}>
+          {dark ? '☀️ Light' : '🌙 Dark'}
+        </button>
         <h1>WeNote</h1>
         <form onSubmit={handleAuth}>
           <input
@@ -79,7 +93,10 @@ function App() {
   }
 
   return (
-    <div style={{ maxWidth: 600, margin: '2rem auto' }}>
+    <div style={{ maxWidth: 600, margin: '2rem auto', position: 'relative' }}>
+      <button className="dark-toggle" onClick={() => setDark(d => !d)}>
+        {dark ? '☀️ Light' : '🌙 Dark'}
+      </button>
       <h1>WeNote</h1>
       <button onClick={handleLogout}>Logout</button>
       <Profile />
