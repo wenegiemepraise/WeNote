@@ -1,27 +1,100 @@
+
+body,
 body.dark {
-  background: #181818;
+  background: linear-gradient(135deg, #181818 0%, #232946 100%);
   color: #f1f1f1;
+  font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+  min-height: 100vh;
 }
 
-.dark input, .dark textarea, .dark select, .dark button {
-  background: #222;
+.dark input, .dark textarea, .dark select, .dark button,
+input, textarea, select, button {
+  background: #232946;
   color: #f1f1f1;
-  border: 1px solid #444;
+  border: 1.5px solid #444;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px 0 rgba(44, 62, 80, 0.12);
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+  transition: box-shadow 0.2s, border 0.2s;
 }
 
-.dark .profile, .dark .note, .dark .editor {
+.dark input:focus, .dark textarea:focus, .dark select:focus, .dark button:focus,
+input:focus, textarea:focus, select:focus, button:focus {
+  border-color: #eebbc3;
+  box-shadow: 0 4px 16px 0 #eebbc355;
+  outline: none;
+}
+
+.dark .profile, .dark .note, .dark .editor,
+.profile, .note, .editor {
   background: #232323;
-  border-color: #333;
+  border: 1.5px solid #333;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px 0 rgba(238, 187, 195, 0.08), 0 1.5px 6px 0 #23294633;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: box-shadow 0.2s, border 0.2s;
+}
+
+.dark .profile:hover, .dark .note:hover, .dark .editor:hover,
+.profile:hover, .note:hover, .editor:hover {
+  box-shadow: 0 8px 32px 0 #eebbc355, 0 2px 8px 0 #23294633;
+  border-color: #eebbc3;
 }
 
 button.dark-toggle {
   position: absolute;
   top: 1rem;
   right: 1rem;
-  background: #333;
-  color: #f1f1f1;
+  background: linear-gradient(90deg, #eebbc3 0%, #b8c1ec 100%);
+  color: #232946;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
+  padding: 0.5rem 1.2rem;
+  border-radius: 20px;
   cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 2px 8px 0 #eebbc355;
+  transition: background 0.2s, color 0.2s;
+}
+
+button.dark-toggle:hover {
+  background: linear-gradient(90deg, #b8c1ec 0%, #eebbc3 100%);
+  color: #232946;
+}
+
+a, a:visited {
+  color: #eebbc3;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a:hover {
+  color: #b8c1ec;
+}
+
+h1, h2, h3, h4 {
+  color: #eebbc3;
+  letter-spacing: 1px;
+}
+
+/* Playful accent for important buttons */
+button, .dark button {
+  background: linear-gradient(90deg, #eebbc3 0%, #b8c1ec 100%);
+  color: #232946;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  box-shadow: 0 2px 8px 0 #eebbc355;
+  margin: 0.25rem 0.5rem 0.25rem 0;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+button:hover, .dark button:hover {
+  background: linear-gradient(90deg, #b8c1ec 0%, #eebbc3 100%);
+  color: #232946;
+  box-shadow: 0 4px 16px 0 #eebbc355;
+}
+
+/* Fun animation for toggle */
+button.dark-toggle:active {
+  transform: scale(0.96) rotate(-2deg);
 }
